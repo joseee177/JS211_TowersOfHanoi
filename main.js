@@ -30,27 +30,51 @@ const printStacks = () => {
 }
 
 // Next, what do you think this function should do?
-const movePiece = () => {
+const movePiece = (startStack, endStack) => {
   // Your code here
-
+  stacks[endStack].push(stacks[startStack].pop());
 }
 
 // Before you move, should you check if the move it actually allowed? Should 3 be able to be stacked on 2
-const isLegal = () => {
+const isLegal = (startStack, endStack) => {
   // Your code here
-
+  console.log(startStack + "," + endStack)
+  if (!(stacks[endStack].length) || stacks[endStack][stacks[endStack].length - 1] > stacks[startStack][stacks[startStack].length - 1]) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 // What is a win in Towers of Hanoi? When should this function run?
 const checkForWin = () => {
   // Your code here
-
+  if (stacks["c"].length == 4 || stacks["b"].length == 4) {
+    console.log(`You Win!`)
+    stacks = {
+      a: [4, 3, 2, 1],
+      b: [],
+      c: []
+    };
+    return true;
+  } else{
+    return false;
+  }
 }
 
 // When is this function called? What should it do with its argument?
 const towersOfHanoi = (startStack, endStack) => {
   // Your code here
-
+  //check if the move is legal
+  if (isLegal(startStack, endStack)) {
+    movePiece(startStack, endStack)
+    checkForWin()
+  } else {
+    console.log(`Illegal Move Try Again!`)
+  }
+  //if the move is legal, then make the move
+  //after you make the move, check if the board is in a win state
+  //if the board is in a win state, then print a nice congrats message
 }
 
 const getPrompt = () => {
